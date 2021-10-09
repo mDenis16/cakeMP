@@ -114,6 +114,21 @@
     <ClCompile Include="System\CakeDiscord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CefApp\CakeWebView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CefApp\CefModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CefApp\Composition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CefApp\d3d11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -240,6 +255,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Libs\scratch2\s2ref.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\CakeWebView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\CefModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\Composition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\d3d11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\FrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CefApp\ImageLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

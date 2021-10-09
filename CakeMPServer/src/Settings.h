@@ -5,8 +5,8 @@
 class Settings
 {
 public:
-	std::string ListenHost = "0.0.0.0";
-	uint16_t ListenPort = 4499;
+	std::string ListenHost = "192.168.88.252";
+	uint16_t ListenPort = 22005;
 
 	std::string ServerName = "Cake is good";
 

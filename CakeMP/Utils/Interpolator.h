@@ -2,6 +2,7 @@
 
 #include <Common.h>
 
+
 NAMESPACE_BEGIN;
 
 template<typename T>
@@ -21,7 +22,7 @@ public:
 	{
 		m_from = from;
 		m_to = to;
-		m_tmStart = _pGame->m_gameTime;
+		m_tmStart = sbp::_pGame->m_gameTime;
 		m_tmLength = ms;
 	}
 

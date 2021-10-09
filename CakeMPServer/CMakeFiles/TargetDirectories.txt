@@ -1,0 +1,3 @@
+D:/repos/cakeMP/CakeMPServer/CMakeFiles/CakeServer.dir
+D:/repos/cakeMP/CakeMPServer/CMakeFiles/ALL_BUILD.dir
+D:/repos/cakeMP/CakeMPServer/CMakeFiles/ZERO_CHECK.dir

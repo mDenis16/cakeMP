@@ -12,11 +12,21 @@
 #include <shv/main.h>
 #include <shv/natives.h>
 
-NAMESPACE_BEGIN;
+#include <include/cef_app.h>
+#include <include/cef_browser.h>
+#include <include/cef_client.h>
+#include <include/cef_version.h>
+
+
+#include "CefApp/CakeWebView.h"
+#include "CefApp/CefModule.h"
+
+NAMESPACE_BEGIN
+	;
 
 Cake* _pGame = nullptr;
 
-/*
+
 static BOOL CALLBACK _windowEnumHandler(HWND hwnd, LPARAM lparam)
 {
 	Cake* pGame = (Cake*)lparam;
@@ -24,13 +34,13 @@ static BOOL CALLBACK _windowEnumHandler(HWND hwnd, LPARAM lparam)
 	DWORD pid = 0;
 	GetWindowThreadProcessId(hwnd, &pid);
 	if (pid == GetCurrentProcessId()) {
-		pGame->m_hWnd = hwnd;
+		SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), RGB(255, 255, 255), LWA_COLORKEY);
 		return FALSE;
 	}
 
 	return TRUE;
 }
-*/
+
 
 Cake::Cake(HMODULE hInstance)
 {
@@ -40,6 +50,7 @@ Cake::Cake(HMODULE hInstance)
 
 	scriptRegister(hInstance, scriptCleanWorld);
 	scriptRegister(hInstance, scriptGame);
+	scriptRegister(hInstance, CefModule::ServiceWorker);
 }
 
 Cake::~Cake()
@@ -51,10 +62,10 @@ void Cake::Initialize()
 {
 	logWrite("Client initializing.");
 
-	/*
+	
 	EnumWindows(_windowEnumHandler, (LPARAM)this);
-	logWrite("Window handle: %p", m_hWnd);
-	*/
+//	logWrite("Window handle: %p", m_hWnd);
+	
 
 	PED::ADD_RELATIONSHIP_GROUP("SYNCPED", (Hash*)&m_pedRelGroup);
 

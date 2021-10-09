@@ -9,6 +9,7 @@
 //#include <System/CakeDiscord.h>
 
 #include <Entities/LocalPlayer.h>
+#include <Rendering\Renderer.h>
 
 NAMESPACE_BEGIN;
 
@@ -18,6 +19,7 @@ public:
 	HMODULE m_hInstance;
 	//HWND m_hWnd = nullptr;
 	uint8_t m_keyStates[256];
+	Renderer m_render;
 
 	//CakeDiscord m_discord;
 

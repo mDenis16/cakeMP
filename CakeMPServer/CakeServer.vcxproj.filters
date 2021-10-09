@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\Logging.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\GameServer.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\Settings.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\Network\NetworkManager.cpp">
+      <Filter>Src\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\Entities\Player.cpp">
+      <Filter>Src\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\Entities\Vehicle.cpp">
+      <Filter>Src\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\World\World.cpp">
+      <Filter>Src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\World\Entity.cpp">
+      <Filter>Src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\World\Queries\Range.cpp">
+      <Filter>Src\World\Queries</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Common.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Logging.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\GameServer.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Settings.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Network\NetworkManager.h">
+      <Filter>Src\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Entities\Player.h">
+      <Filter>Src\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Entities\Vehicle.h">
+      <Filter>Src\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\World\World.h">
+      <Filter>Src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\World\Entity.h">
+      <Filter>Src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\World\Queries\Range.h">
+      <Filter>Src\World\Queries</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\SharedUtils.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\RefCounted.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Octree.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Enums\NetworkMessageType.h">
+      <Filter>Shared\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\NetworkMessage.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\NetHandle.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\NetworkEntityType.h">
+      <Filter>Shared\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\Structs\CreatePed.h">
+      <Filter>Shared\Network\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\Structs\CreateVehicle.h">
+      <Filter>Shared\Network\Structs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\repos\cakeMP\CakeMPServer\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{BB69A6C4-DDD5-3EF9-9E22-CCC22E6412F9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Enums">
+      <UniqueIdentifier>{AC5C2D8E-37D6-3C59-9218-82BBBF2B1411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Network">
+      <UniqueIdentifier>{FEA6601D-1833-31CC-ADE6-C81ABF83343B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Network\Structs">
+      <UniqueIdentifier>{C0AD941A-0E76-3F24-9C64-9E8ED4B72875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{C7111EE6-E5B9-3874-A95C-C20C3C4779CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Entities">
+      <UniqueIdentifier>{13E526F2-16D0-3E67-A522-A9FEA9E8DD4B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Network">
+      <UniqueIdentifier>{04482362-456A-3BC6-96B6-BA6354A6ED08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\World">
+      <UniqueIdentifier>{4CFE7B3A-66E9-30F8-AC7C-8EC3B603A5A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\World\Queries">
+      <UniqueIdentifier>{E83DB4B8-7ADA-3E55-A70A-232BE715F363}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="C:\Users\topor\Downloads\enet64.lib" />
+  </ItemGroup>
+</Project>

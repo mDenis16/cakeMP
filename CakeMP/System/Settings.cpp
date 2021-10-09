@@ -38,9 +38,9 @@ static int settings_handler(void* user, const char* section, const char* name, c
 
 Settings::Settings()
 {
-	if (ini_parse(PROJECT_NAME_SHORT ".ini", &settings_handler, this) < 0) {
+	/*if (ini_parse(PROJECT_NAME_SHORT ".ini", &settings_handler, this) < 0) {
 		logWrite("Error loading " PROJECT_NAME_SHORT ".ini!");
-	}
+	}*/
 }
 
 NAMESPACE_END;
