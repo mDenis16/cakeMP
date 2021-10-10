@@ -64,8 +64,8 @@ void Renderer::CreateRenderTarget()
 
 void Renderer::presentCallback(void* chain)
 {
-	static bool firstInit = false;
-	if (!pSwapChain || pSwapChain != chain)
+	
+	if (!pSwapChain)
 	{
 		pSwapChain = (IDXGISwapChain*)chain;
 		if (FAILED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (LPVOID*)&this->pDevice)))
@@ -144,10 +144,8 @@ void Renderer::presentCallback(void* chain)
 			CefModuleManager->_width = 1920; CefModuleManager->_height = 1080;
 			CefModuleManager->InitComposition();
 
-			if (!firstInit) {
-				CefModuleManager->CreateWebView("https://www.youtube.com/embed/9t7HxGW8ACo?autoplay=1");
-				firstInit = true;
-			}
+			CefModuleManager->CreateWebView("https://www.youtube.com/embed/9t7HxGW8ACo?autoplay=1");
+	       
 			
 		}
 	}

@@ -16,14 +16,15 @@ public:
 
 	bool m_inVehicle = false;
 
-public:
+
 	Ped();
 	Ped(int localHandle, const NetHandle &netHandle);
 	virtual ~Ped();
 
 	virtual NetworkEntityType GetType();
+	
 
-	virtual void Update();
+	void OnNetworkUpdate(NetworkMessage* message) override;
 
 	virtual void SetModel(uint32_t hash);
 

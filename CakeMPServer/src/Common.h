@@ -35,3 +35,11 @@
 typedef std::chrono::high_resolution_clock Clock;
 typedef Clock::time_point ClockTime;
 #define ClockDuration std::chrono::duration_cast<std::chrono::milliseconds>
+
+#define SAFE_READ(prop) std::lock_guard <std::mutex> guard(prop##_lock);
+#define SAFE_MODIFY(prop) std::lock_guard<std::mutex> guard(prop##_lock);
+#define SAFE_PROP(type,prop) \
+type prop; \
+std::mutex prop##_lock; \
+
+#define COMMA ,

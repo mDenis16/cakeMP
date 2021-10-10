@@ -6,8 +6,18 @@
 
 #include <Utils/Interpolator.h>
 #include <Network/NetworkEntityType.h>
+#include <Network/NetworkMessage.h>
 
 NAMESPACE_BEGIN;
+class LagRecord
+{
+public:
+	glm::vec3 position;
+	glm::vec3 rotation;
+	glm::vec3 velocity;
+	float simulation_time = 0.f;
+	int tickcount = 0;
+};
 
 class Entity
 {
@@ -16,22 +26,25 @@ private:
 	NetHandle m_netHandle;
 
 protected:
-	Interpolator<glm::vec3> m_lerpPos;
-	Interpolator<glm::quat> m_lerpRot;
+
 
 public:
+
+
+	SAFE_PROP(std::vector<LagRecord*>, lagRecords)
+
+
+	
+
+
 	Entity();
 	Entity(int localHandle, const NetHandle &netHandle);
 	virtual ~Entity();
 
 	virtual NetworkEntityType GetType() = 0;
 
-	virtual void Update();
-	virtual void Frame();
 
-	virtual void InterpolatePosition(const glm::vec3 &start, const glm::vec3 &end, int ms);
-	virtual void InterpolateQuaternion(const glm::quat &start, const glm::quat &end, int ms);
-	virtual void InterpolateHeading(float start, float end, int ms);
+
 
 	virtual bool IsLocal();
 	virtual bool CanBeDeleted();
@@ -63,6 +76,9 @@ public:
 	virtual void SetVelocity(const glm::vec3 &vel);
 
 	virtual uint32_t GetModel();
+
+
+	virtual void OnNetworkUpdate(NetworkMessage* message) = 0;
 };
 
 NAMESPACE_END;

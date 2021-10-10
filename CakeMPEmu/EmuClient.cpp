@@ -1,7 +1,8 @@
-#include <Common.h>
+#include "Common.h"
 
 #include <cmath>
-
+#include <chrono>
+#include <iostream>
 #include <signal.h>
 
 #include <enet/enet.h>
@@ -14,6 +15,9 @@
 #include <Network/NetworkMessage.h>
 
 static volatile bool g_keepRunning = true;
+#define ClockDuration std::chrono::duration_cast<std::chrono::milliseconds>
+typedef std::chrono::high_resolution_clock Clock;
+typedef Clock::time_point ClockTime;
 
 static void IntHandler(int dummy)
 {
@@ -41,12 +45,13 @@ int main()
 	signal(SIGINT, IntHandler);
 
 	enet_initialize();
+	const auto p1 = std::chrono::system_clock::now();
 
 	g_host = enet_host_create(nullptr, 1, 1, 0, 0);
 
 	ENetAddress addr;
-	enet_address_set_host(&addr, "localhost");
-	addr.port = 4499;
+	enet_address_set_host(&addr, "192.168.88.252");
+	addr.port = 22005;
 	g_peer = enet_host_connect(g_host, &addr, 1, 0);
 
 	bool connected = false;
@@ -55,8 +60,12 @@ int main()
 	glm::vec3 prevPos;
 	int sendPosC = 0;
 	int tickCount = 0;
+	int nextTick = 40;
 
-	while (g_keepRunning) {
+	int time = 1000 / 40;
+	ClockTime m_tmSync = Clock::now();
+
+	while (true) {
 		ENetEvent ev;
 		if (enet_host_service(g_host, &ev, 0) > 0) {
 			if (ev.type == ENET_EVENT_TYPE_CONNECT) {
@@ -64,8 +73,8 @@ int main()
 				connected = true;
 
 				NetworkMessage* msgHandshake = new NetworkMessage(NMT_Handshake);
-				msgHandshake->Write("Emu");
-				msgHandshake->Write("Emu");
+				msgHandshake->Write("EmuUsername");
+				msgHandshake->Write("EmuNickname");
 				SendToHost(msgHandshake);
 
 				continue;
@@ -131,12 +140,18 @@ int main()
 				continue;
 			}
 		}
+		
+		if ((int)ClockDuration(Clock::now() - m_tmSync).count() > 1000 / 40) {
+			nextTick = tickCount + time;
+			m_tmSync = Clock::now();
 
-		if (++sendPosC >= 7) {
-			printf("Send position!\n");
-			tickCount++;
+			//printf("Send position!\n");
+			
 
-			float distance = 4.0f;
+			auto tm = std::chrono::duration_cast<std::chrono::seconds>(
+				p1.time_since_epoch()).count();
+
+			float distance = 14.0f;
 			float dx = cosf(tickCount / 5.0f) * distance;
 			float dy = sinf(tickCount / 5.0f) * distance;
 			glm::vec3 newPos = spawnPoint + glm::vec3(dx, dy, 0);
@@ -154,8 +169,9 @@ int main()
 
 			sendPosC = 0;
 		}
+		tickCount++;
 
-		usleep(17 * 1000);
+		Sleep(tickCount % 6 == 0 ? 600: 200);
 	}
 
 	if (connected) {

@@ -5,5 +5,6 @@
 NAMESPACE_BEGIN;
 
 extern void scriptGame();
+extern void scriptGameFrame();
 
 NAMESPACE_END;

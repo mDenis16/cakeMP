@@ -12,21 +12,52 @@ class GameServer;
 
 class NetworkManager
 {
-private:
+public:
 	GameServer* m_server = nullptr;
 
 	ENetHost* m_hostListen = nullptr;
 
-	std::queue<NetworkMessage*> m_incomingMessages;
-	std::queue<NetworkMessage*> m_outgoingMessages;
+	void QueueExecutor();
 
-	std::vector<Player*> m_players;
+	void MessageQueue();
+
+	void QueueSender();
+
+	void Update();
+
+
+
+
+	SAFE_PROP(std::queue<NetworkMessage*>, m_incomingMessages);
+	SAFE_PROP(std::queue<NetworkMessage*>, m_outgoingMessages);
+
+	SAFE_PROP(std::vector<Player*>, m_players);
+
+
+	std::mutex QueueExecutorMutex;
+	std::condition_variable QueueExecutorMutexCond;
+	bool QueueExecutorMutexCondFlag = false;
+
+	std::thread* QueueExecutorThread = nullptr;
+
+
+
+	std::thread* MessageQueueThread = nullptr;
+
+
+	std::thread* QueueSenderThread = nullptr;
+	std::mutex QueueSenderMutex;
+	std::condition_variable QueueSenderMutexCond;
+	bool QueueSenderMutexCondFlag = false;
+
 
 	uint32_t m_handleIterator = 1;
 
 public:
 	NetworkManager(GameServer* server);
 	~NetworkManager();
+
+	
 
 	NetHandle AssignHandle();
 
@@ -43,5 +74,5 @@ public:
 	void SendMessageToRange(const glm::vec3 &pos, float range, NetworkMessage* message);
 	void SendMessageToRange(const glm::vec3 &pos, float range, NetworkMessage* message, ENetPeer* except);
 
-	void Update();
+
 };

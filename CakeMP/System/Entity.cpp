@@ -1,5 +1,6 @@
 #include <Common.h>
 
+#include <Network/NetworkManager.h>
 #include <System/Cake.h>
 #include <System/Entity.h>
 
@@ -24,45 +25,7 @@ Entity::~Entity()
 	Delete();
 }
 
-void Entity::Update()
-{
-	if (m_lerpPos.IsActive()) {
-		m_lerpPos.Update();
-		glm::vec3 lerpedPosition = m_lerpPos.Current();
-		ENTITY::SET_ENTITY_COORDS_NO_OFFSET(GetLocalHandle(), lerpedPosition.x, lerpedPosition.y, lerpedPosition.z, false, false, false);
-	}
 
-	if (m_lerpRot.IsActive()) {
-		m_lerpRot.Update();
-		glm::quat lerpedQuaternion = m_lerpRot.CurrentSpherical();
-		ENTITY::SET_ENTITY_QUATERNION(GetLocalHandle(), lerpedQuaternion.x, lerpedQuaternion.y, lerpedQuaternion.z, lerpedQuaternion.w);
-	}
-}
-
-void Entity::Frame()
-{
-}
-
-void Entity::InterpolatePosition(const glm::vec3 &start, const glm::vec3 &end, int ms)
-{
-	m_lerpPos.Set(start, end, ms);
-	ENTITY::SET_ENTITY_COORDS_NO_OFFSET(GetLocalHandle(), start.x, start.y, start.z, false, false, false);
-}
-
-void Entity::InterpolateQuaternion(const glm::quat &start, const glm::quat &end, int ms)
-{
-	m_lerpRot.Set(start, end, ms);
-	ENTITY::SET_ENTITY_QUATERNION(GetLocalHandle(), start.x, start.y, start.z, start.w);
-}
-
-void Entity::InterpolateHeading(float start, float end, int ms)
-{
-	float radStart = glm::radians(start);
-	float radEnd = glm::radians(end);
-
-	glm::vec3 up(0.0f, 0.0f, 1.0f);
-	InterpolateQuaternion(glm::angleAxis(radStart, up), glm::angleAxis(radEnd, up), ms);
-}
 
 bool Entity::IsLocal()
 {

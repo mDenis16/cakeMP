@@ -1,5 +1,5 @@
 #include <Common.h>
-
+#include <Network/NetworkMessage.h>
 #include <Entities/Player.h>
 
 #include <System/Cake.h>
@@ -8,6 +8,7 @@ NAMESPACE_BEGIN;
 
 Player::Player()
 {
+	
 }
 
 Player::Player(const NetHandle &handle, const NetStructs::CreatePed &createPed)
@@ -43,5 +44,7 @@ void Player::SetPlayerInfo(const s2::ref<PlayerInfo> &playerInfo)
 {
 	m_playerInfo = playerInfo;
 }
+
+
 
 NAMESPACE_END;

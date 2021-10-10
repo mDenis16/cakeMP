@@ -41,18 +41,14 @@ void GameServer::Run()
 	while (m_running && g_running) {
 		Update();
 
-#ifdef _MSC_VER
-		Sleep(1000 / m_settings.TickRate);
-#else
-		usleep((1000 / m_settings.TickRate) * 1000);
-#endif
+		Sleep(50000);
 	}
 
-	logWrite("Server shutting down...");
+	//logWrite("Server shutting down...");
 }
 
 void GameServer::Update()
 {
 	m_world.Update();
-	m_network.Update();
+
 }

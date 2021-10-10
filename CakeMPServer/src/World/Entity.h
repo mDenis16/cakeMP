@@ -5,17 +5,18 @@
 #include <Network/NetworkMessage.h>
 #include <Network/NetworkEntityType.h>
 
+#include "LagCompensation/LagRecord.h"
+
 class Entity : public RefCounted
 {
 public:
 	NetHandle m_handle;
-
+	SAFE_PROP(std::deque<LagRecord*>, lagRecords);
 protected:
-	glm::vec3 m_position;
+	
 	glm::vec3 m_rotation;
-	glm::vec3 m_velocity;
-	uint8_t m_moveType = 0;
-
+	glm::vec3 m_position;
+	glm::vec3 m_spawnposition;
 public:
 	Entity(const NetHandle &handle);
 	virtual ~Entity();

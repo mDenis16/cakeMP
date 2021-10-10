@@ -34,6 +34,7 @@ public:
 
 	uint32_t m_pedRelGroup = 0;
 
+	bool m_initialized = false;
 public:
 	Cake(HMODULE hInstance);
 	~Cake();

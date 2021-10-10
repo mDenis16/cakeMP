@@ -21,14 +21,20 @@ private:
 	ENetHost* m_localHost = nullptr;
 	ENetPeer* m_localPeer = nullptr;
 
-	std::vector<s2::ref<PlayerInfo>> m_playerInfos;
+	
 
-	std::queue<NetworkMessage*> m_incomingMessages;
-	std::queue<NetworkMessage*> m_outgoingMessages;
+	SAFE_PROP(std::vector<s2::ref<PlayerInfo>>, m_playerInfos);
 
-	std::unordered_map<uint32_t, Entity*> m_entitiesNetwork;
+    SAFE_PROP(std::queue<NetworkMessage*>, m_incomingMessages);
 
-	//TODO: Move this to a shared ServerInfo structure?
+	SAFE_PROP(std::queue<NetworkMessage*>, m_outgoingMessages);
+
+	SAFE_PROP(std::unordered_map<uint32_t COMMA Entity*>, m_entitiesNetwork);
+
+
+	std::thread* NetworkThread = nullptr;
+	std::thread* MessageHandlerThread = nullptr;
+
 	std::string m_currentServerName;
 	int m_currentServerMaxPlayers;
 
@@ -73,6 +79,7 @@ public:
 	}
 
 	void Initialize();
+	void MessageHandler();
 	void Update();
 
 	s2::ref<PlayerInfo> GetPlayer(const NetHandle &handle);

@@ -1,10 +1,11 @@
 #include <Common.h>
+#include <Network/NetworkMessage.h>
 
 #include <Entities/LocalPlayer.h>
 #include <Entities/Vehicle.h>
 
 #include <System/Cake.h>
-#include <Network/NetworkMessage.h>
+
 #include <Utils/Models.h>
 #include <Enums/GameControl.h>
 #include <GTA/UI/UI.h>
@@ -155,15 +156,16 @@ void LocalPlayer::Update()
 
 void LocalPlayer::Frame()
 {
-	Player::Frame();
+	//::Frame();
 
 	if (!_pGame->m_network.IsConnected()) {
 		return;
 	}
 
-	glm::vec3 pos = GetPosition();
-	glm::vec3 vel = GetVelocity();
-	GRAPHICS::DRAW_LINE(pos.x, pos.y, pos.z, pos.x + vel.x, pos.y + vel.y, pos.z + vel.z, 0, 0, 255, 255);
+
+	//glm::vec3 pos = GetPosition();
+	//glm::vec3 vel = GetVelocity();
+	//GRAPHICS::DRAW_LINE(pos.x, pos.y, pos.z, pos.x + vel.x, pos.y + vel.y, pos.z + vel.z, 0, 0, 255, 255);
 }
 
 s2::ref<PlayerInfo> LocalPlayer::GetPlayerInfo()

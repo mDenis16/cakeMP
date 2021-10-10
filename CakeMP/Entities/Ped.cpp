@@ -1,5 +1,5 @@
 #include <Common.h>
-
+#include <Network/NetworkMessage.h>
 #include <Entities/Ped.h>
 
 #include <System/Cake.h>
@@ -27,36 +27,43 @@ NetworkEntityType Ped::GetType()
 	return ET_Ped;
 }
 
-void Ped::Update()
+
+
+//void Ped::Update()
+//{
+//	if (!m_inVehicle) {
+//		Entity::Update();
+//
+//		if (m_lerpPos.IsActive()) {
+//			glm::vec3 &from = m_lerpPos.From();
+//			glm::vec3 &to = m_lerpPos.To();
+//
+//			GRAPHICS::DRAW_LINE(from.x, from.y, from.z, to.x, to.y, to.z, 255, 0, 0, 255);
+//			GRAPHICS::DRAW_LINE(from.x, from.y, from.z, m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 0, 255, 0, 255);
+//		}
+//
+//		if (m_speedOnFoot == OFMT_Still) {
+//			AI::TASK_STAND_STILL(GetLocalHandle(), 1000);
+//
+//		} else if (m_speedOnFoot == OFMT_Walking) {
+//			AI::TASK_GO_STRAIGHT_TO_COORD(GetLocalHandle(), m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 1.0f, 1000, 0.0f, 0.0f);
+//			AI::SET_PED_DESIRED_MOVE_BLEND_RATIO(GetLocalHandle(), 1.0f);
+//
+//		} else if (m_speedOnFoot == OFMT_Running) {
+//			AI::TASK_GO_STRAIGHT_TO_COORD(GetLocalHandle(), m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 4.0f, 1000, 0.0f, 0.0f);
+//			AI::SET_PED_DESIRED_MOVE_BLEND_RATIO(GetLocalHandle(), 2.0f);
+//
+//		} else if (m_speedOnFoot == OFMT_Sprinting) {
+//			AI::TASK_GO_STRAIGHT_TO_COORD(GetLocalHandle(), m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 3.0f, 1000, 0.0f, 0.0f);
+//			PLAYER::SET_RUN_SPRINT_MULTIPLIER_FOR_PLAYER(GetLocalHandle(), 1.49f);
+//			AI::SET_PED_DESIRED_MOVE_BLEND_RATIO(GetLocalHandle(), 3.0f);
+//		}
+//	}
+//}
+
+void Ped::OnNetworkUpdate(NetworkMessage* message)
 {
-	if (!m_inVehicle) {
-		Entity::Update();
 
-		if (m_lerpPos.IsActive()) {
-			glm::vec3 &from = m_lerpPos.From();
-			glm::vec3 &to = m_lerpPos.To();
-
-			GRAPHICS::DRAW_LINE(from.x, from.y, from.z, to.x, to.y, to.z, 255, 0, 0, 255);
-			GRAPHICS::DRAW_LINE(from.x, from.y, from.z, m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 0, 255, 0, 255);
-		}
-
-		if (m_speedOnFoot == OFMT_Still) {
-			AI::TASK_STAND_STILL(GetLocalHandle(), 1000);
-
-		} else if (m_speedOnFoot == OFMT_Walking) {
-			AI::TASK_GO_STRAIGHT_TO_COORD(GetLocalHandle(), m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 1.0f, 1000, 0.0f, 0.0f);
-			AI::SET_PED_DESIRED_MOVE_BLEND_RATIO(GetLocalHandle(), 1.0f);
-
-		} else if (m_speedOnFoot == OFMT_Running) {
-			AI::TASK_GO_STRAIGHT_TO_COORD(GetLocalHandle(), m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 4.0f, 1000, 0.0f, 0.0f);
-			AI::SET_PED_DESIRED_MOVE_BLEND_RATIO(GetLocalHandle(), 2.0f);
-
-		} else if (m_speedOnFoot == OFMT_Sprinting) {
-			AI::TASK_GO_STRAIGHT_TO_COORD(GetLocalHandle(), m_speedOnFootTowards.x, m_speedOnFootTowards.y, m_speedOnFootTowards.z, 3.0f, 1000, 0.0f, 0.0f);
-			PLAYER::SET_RUN_SPRINT_MULTIPLIER_FOR_PLAYER(GetLocalHandle(), 1.49f);
-			AI::SET_PED_DESIRED_MOVE_BLEND_RATIO(GetLocalHandle(), 3.0f);
-		}
-	}
 }
 
 void Ped::SetModel(uint32_t hash)

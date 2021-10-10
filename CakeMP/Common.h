@@ -16,6 +16,7 @@
 // STL includes
 #include <thread>
 #include <mutex>
+#include <shared_mutex>
 #include <string>
 #include <sstream>
 #include <queue>
@@ -50,5 +51,13 @@ typedef std::chrono::high_resolution_clock Clock;
 typedef std::chrono::time_point<std::chrono::steady_clock> ClockTime;
 #define MilliDuration std::chrono::duration_cast<std::chrono::milliseconds>
 #define MicroDuration std::chrono::duration_cast<std::chrono::microseconds>
+
+#define SAFE_READ(prop) std::lock_guard <std::mutex> guard(prop##_lock);
+#define SAFE_MODIFY(prop) std::lock_guard<std::mutex> guard(prop##_lock);
+#define SAFE_PROP(type,prop) \
+type prop; \
+std::mutex prop##_lock; \
+
+#define COMMA ,
 
 

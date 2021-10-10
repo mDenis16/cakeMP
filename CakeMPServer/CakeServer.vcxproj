@@ -85,7 +85,8 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);F:\includes\enet-master\include;F:\includes\glm-master;D:\repos\cakeMP\CakeMPShared;D:\repos\cakeMP\CakeMPServer\src</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);F:\includes\enet-master\include;F:\includes\glm-master;D:\repos\cakeMP\CakeMPShared;D:\repos\cakeMP\CakeMPServer\src;C:\raylib\raylib\src</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\raylib\raylib\projects\VS2019\build\raylib\bin\x64\Release.DLL;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -138,7 +139,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
@@ -160,7 +161,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Ws2_32.lib;WinMM.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>raylib.lib;Ws2_32.lib;WinMM.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -317,6 +318,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\main.cpp" />
+    <ClCompile Include="src\LagCompensation\LagRecord.cpp" />
+    <ClCompile Include="src\SceneRender.cpp" />
     <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Common.h" />
     <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\Logging.cpp" />
     <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Logging.h" />
@@ -345,6 +348,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\NetworkEntityType.h" />
     <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\Structs\CreatePed.h" />
     <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\Structs\CreateVehicle.h" />
+    <ClInclude Include="src\LagCompensation\LagRecord.h" />
+    <ClInclude Include="src\SceneRender.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="C:\Users\topor\Downloads\enet64.lib" />

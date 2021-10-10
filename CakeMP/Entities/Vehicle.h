@@ -26,6 +26,8 @@ public:
 
 	virtual void Update();
 
+	void OnNetworkUpdate(NetworkMessage* message) override;
+
 	static int CreateLocal(uint32_t modelHash, const glm::vec3 &pos, float heading = 0.0f);
 };
 

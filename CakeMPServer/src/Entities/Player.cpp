@@ -6,7 +6,9 @@
 
 #include <Network/Structs/CreatePed.h>
 
-Player::Player(ENetPeer* peer, const NetHandle &handle)
+#include "LagCompensation/LagRecord.h"
+
+Player::Player(ENetPeer* peer, const NetHandle& handle)
 	: Entity(handle)
 {
 	m_peer = peer;
@@ -15,6 +17,8 @@ Player::Player(ENetPeer* peer, const NetHandle &handle)
 	m_position.x = -0.341730f;
 	m_position.y = 525.319763f;
 	m_position.z = 179.050201f;
+
+
 
 	m_model = hashGet("a_f_y_bevhills_02");
 
@@ -47,7 +51,7 @@ void Player::OnDisconnected()
 	m_streamedEntities.clear();
 }
 
-void Player::Kick(const std::string &reason)
+void Player::Kick(const std::string& reason)
 {
 	if (m_peer == nullptr) {
 		return;
@@ -87,6 +91,8 @@ void Player::Close()
 void Player::HandleMessage(NetworkMessage* message)
 {
 	if (message->m_type == NMT_Handshake) {
+		logWrite("HandleMessage : NMT_Handshake");
+
 		std::string username, nickname;
 
 		message->Read(username);
@@ -127,7 +133,7 @@ void Player::HandleMessage(NetworkMessage* message)
 		msgJoin->Write(m_handle);
 		msgJoin->Write(m_username);
 		msgJoin->Write(m_nickname);
-		_pServer->m_network.SendMessageToAll(msgJoin, m_peer);
+		//	_pServer->m_network.SendMessageToAll(msgJoin, m_peer);
 
 		return;
 	}
@@ -146,26 +152,30 @@ void Player::HandleMessage(NetworkMessage* message)
 	}
 
 	if (message->m_type == NMT_PlayerMove) {
-		glm::vec3 newPosition, newVelocity;
-		float newHeading;
-		uint8_t newMoveType;
 
-		message->Read(newPosition);
-		message->Read(newHeading);
-		message->Read(newVelocity);
-		message->Read(newMoveType);
+		logWrite("HandleMessage : NMT_PlayerMove");
 
-		//TODO: Process vectors for validity (maybe even do NaN checks for floats and vectors in NetworkMessage::Read())
+		LagRecord* lag = new LagRecord();
 
-		SetPosition(newPosition);
-		m_rotation.z = newHeading;
-		m_velocity = newVelocity;
-		m_moveType = newMoveType;
+
+		message->Read(lag->m_position);
+		message->Read(lag->heading);
+		message->Read(lag->m_velocity);
+		message->Read(lag->m_movetype);
+
+
+		m_position = lag->m_position;
+
+		SAFE_MODIFY(this->lagRecords);
+
+		this->lagRecords.push_back(lag);
+		while(this->lagRecords.size() > 6)
+			this->lagRecords.pop_front();
 
 		return;
 	}
 
-	if (message->m_type == NMT_EnteringVehicle) {
+	/*if (message->m_type == NMT_EnteringVehicle) {
 		NetHandle vehicleHandle;
 		int seat;
 
@@ -227,7 +237,7 @@ void Player::HandleMessage(NetworkMessage* message)
 		_pServer->m_network.SendMessageToRange(m_position, _pServer->m_settings.StreamingRange, msgEnteredVehicle, m_peer);
 
 		return;
-	}
+	}*/
 }
 
 void Player::CheckStreamingEntities()
@@ -246,9 +256,11 @@ void Player::CheckStreamingEntities()
 	while (itOld != m_streamedEntities.end() && itNew != newStreaming.end()) {
 		if (*itOld < *itNew) {
 			streamedOut.push_back(*itOld++);
-		} else if (*itNew < *itOld) {
+		}
+		else if (*itNew < *itOld) {
 			streamedIn.push_back(*itNew++);
-		} else {
+		}
+		else {
 			itOld++;
 			itNew++;
 		}
@@ -320,14 +332,14 @@ void Player::Update()
 
 		//TODO: Only send this when player has moved, and only when not in vehicle
 
-		NetworkMessage* msgPos = new NetworkMessage(NMT_PlayerMove);
-		//TODO: Turn this into a NetStruct
-		msgPos->Write(m_handle);
-		msgPos->Write(m_position);
-		msgPos->Write(m_rotation.z);
-		msgPos->Write(m_velocity);
-		msgPos->Write(m_moveType);
-		_pServer->m_network.SendMessageToRange(m_position, _pServer->m_settings.StreamingRange, msgPos, m_peer);
+		//NetworkMessage* msgPos = new NetworkMessage(NMT_PlayerMove);
+		////TODO: Turn this into a NetStruct
+		//msgPos->Write(m_handle);
+		//msgPos->Write(m_position);
+		//msgPos->Write(m_rotation.z);
+		//msgPos->Write(m_velocity);
+		//msgPos->Write(m_moveType);
+		//_pServer->m_network.SendMessageToRange(m_position, _pServer->m_settings.StreamingRange, msgPos, m_peer);
 	}
 
 	Entity::Update();

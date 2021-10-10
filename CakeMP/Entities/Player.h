@@ -22,6 +22,10 @@ public:
 
 	virtual s2::ref<PlayerInfo> GetPlayerInfo();
 	virtual void SetPlayerInfo(const s2::ref<PlayerInfo> &playerInfo);
+
+	//void OnNetworkUpdate(NetworkMessage* message) override;
+
+	
 };
 
 NAMESPACE_END;

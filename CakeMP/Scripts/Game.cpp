@@ -7,6 +7,20 @@
 #include <shv/natives.h>
 
 NAMESPACE_BEGIN;
+void scriptGameFrame()
+{
+	while (DLC2::GET_IS_LOADING_SCREEN_ACTIVE()) {
+		WAIT(0);
+	}
+
+	if (_pGame && _pGame->m_initialized)
+	{
+		while(_pGame->m_initialized)
+			_pGame->Frame();
+
+		WAIT(0);
+	}
+}
 
 void scriptGame()
 {
@@ -24,21 +38,12 @@ void scriptGame()
 	UI::_REMOVE_LOADING_PROMPT();
 	*/
 
-	const int UpdateInterval = (int)((1000 / 60.0f) * 1000);
+	const int UpdateInterval = (int)((1000 / 40));
 
 	ClockTime tmLastUpdate = Clock::now();
 
-	while (true) {
-		ClockTime tmNow = Clock::now();
-		auto tmSinceLastUpdate = MicroDuration(tmNow - tmLastUpdate);
-
-		if (tmSinceLastUpdate.count() >= UpdateInterval) {
-			tmLastUpdate = tmNow;
-			_pGame->Update(tmSinceLastUpdate.count() / 1000.0f);
-		}
-		_pGame->Frame();
-
-		WAIT(0);
+	while (true){
+		_pGame->Update(0);
 	}
 }
 

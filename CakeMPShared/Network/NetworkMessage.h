@@ -7,6 +7,7 @@
 
 #define NETWORK_MESSAGE_DEFAULT_SIZE 32
 #define NETWORK_MESSAGE_ALLOCATE_SIZE 64
+#undef min
 
 class NetworkMessage
 {
@@ -70,7 +71,7 @@ public:
 		assert(m_current < m_length);
 
 #ifdef _MSC_VER
-		sz = min(sz, m_length - m_current);
+		sz = std::min(sz, m_length - m_current);
 #else
 		sz = std::min(sz, m_length - m_current);
 #endif

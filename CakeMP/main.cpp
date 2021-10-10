@@ -126,70 +126,7 @@ bool memory_compare(const BYTE* data, const BYTE* pattern, const char* mask)
 	}
 	return (*mask) == NULL;
 }
-MODULEINFO g_MainModuleInfo = { 0 };
-UINT64 FindPattern(char* pattern, char* mask)
-{	//Edited, From YSF by Kurta999
-	UINT64 i;
-	UINT64 size;
-	UINT64 address;
 
-	MODULEINFO info = { 0 };
-
-	address = (UINT64)GetModuleHandle(NULL);
-	GetModuleInformation(GetCurrentProcess(), GetModuleHandle(NULL), &info, sizeof(MODULEINFO));
-	size = (UINT64)info.SizeOfImage;
-
-	for (i = 0; i < size; ++i)
-	{
-		if (memory_compare((BYTE*)(address + i), (BYTE*)pattern, mask))
-		{
-			return (UINT64)(address + i);
-		}
-	}
-	return 0;
-}
-void NoIntro()
-{
-	// CREDITS: CitizenMP
-
-	//Disable logos since they add loading time
-	UINT64 logos = FindPattern("platform:/movies/rockstar_logos", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-	if (logos != 0)
-	{
-		//memset((void*)(logos + 0x11), 0x00, 0x0E);
-		memcpy((void*)logos, "./nonexistingfilenonexistingfil", 32);
-
-		//DisableLegalMessagesCompletely();
-		DWORD64 dwSplashScreen = Pattern::Scan(g_MainModuleInfo, "72 1F E8 ? ? ? ? 8B 0D");
-		if (dwSplashScreen == NULL)  //If the module is still encrypted at the time of injection, run the No Intro code.
-		{
-			while (dwSplashScreen == NULL)
-			{
-				Sleep(10);
-				dwSplashScreen = Pattern::Scan(g_MainModuleInfo, "72 1F E8 ? ? ? ? 8B 0D");
-			}
-
-			if (dwSplashScreen != NULL)
-				*(unsigned short*)(dwSplashScreen) = 0x9090; //NOP out the check to make it think it's time to stop.
-
-			DWORD64 dwRockStarLogo = Pattern::Scan(g_MainModuleInfo, "70 6C 61 74 66 6F 72 6D 3A");
-			int iCounter = 0;
-			while (dwRockStarLogo == NULL)
-			{
-				Sleep(10);
-				dwRockStarLogo = Pattern::Scan(g_MainModuleInfo, "70 6C 61 74 66 6F 72 6D 3A");
-			}
-
-			if (dwRockStarLogo != NULL)
-				*(unsigned char*)(dwRockStarLogo) = 0x71; //Replace the P with some garbage so it won't find the file.
-
-			Sleep(15000); //Wait until the logo code has finished running.
-						  //Restore the EXE to its original state.
-			*(unsigned char*)(dwRockStarLogo) = 0x70;
-			*(unsigned short*)(dwSplashScreen) = 0x1F72;
-		}
-	}
-}
 static void appInitialize(HMODULE hInstance)
 {
 	
@@ -198,39 +135,6 @@ static void appInitialize(HMODULE hInstance)
 
 	logWrite("Initializing v" PROJECT_VERSION);
 
-	if (!GetModuleInformation(GetCurrentProcess(), GetModuleHandle(0), &g_MainModuleInfo, sizeof(g_MainModuleInfo))) {
-		logWrite("Unable to get MODULEINFO from GTA5.exe");
-	}
-	NoIntro();
-
-	uint8_t* pMapNatives = memFindPattern("48 89 5C 24 ?? 48 89 7C 24 ?? 45 33 C0 4C");
-	if (pMapNatives != nullptr) {
-		logWrite("Dumping natives...");
-
-		uint32_t offset = *(uint32_t*)(pMapNatives + 0x1D + 3);
-		NativeReg** table = (NativeReg**)(pMapNatives + 0x24 + offset);
-
-		int numNatives = 0;
-
-		FILE* fh = fopen("natives.txt", "wb");
-		if (fh != nullptr) {
-			int tableIndex = 0;
-			NativeReg* cur = cur = table[tableIndex];
-			do {
-				while (cur != nullptr) {
-					for (uint32_t i = 0; i < cur->numEntries; i++) {
-						fprintf(fh, "0x%016llX @ %p\n", cur->hashes[i], cur->handlers[i]);
-						numNatives++;
-					}
-					cur = cur->next;
-				}
-				cur = table[++tableIndex];
-			} while (cur != nullptr);
-			fclose(fh);
-		}
-
-		logWrite("Done!");
-	}
 
 	CefModuleManager = new CefModule(hInstance);
 	_pGame = new Cake(hInstance);
@@ -239,7 +143,7 @@ static void appInitialize(HMODULE hInstance)
 	
 	
 
-	presentCallbackRegister(PresentCallBack);
+	//presentCallbackRegister(PresentCallBack);
 
 	
 }
@@ -249,7 +153,7 @@ static void appUninitialize()
 	logWrite("Uninitializing");
 
 	keyboardHandlerUnregister(appKeyboardHandler);
-	presentCallbackUnregister(PresentCallBack);
+	//presentCallbackUnregister(PresentCallBack);
 	delete _pGame;
 
 	memTest();
@@ -267,7 +171,7 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD reason, LPVOID lpReserved)
 
 		NAMESPACE_NAME::appInitialize(hInstance);
 
-		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)CefModule::ServiceWorker, (LPVOID)hInstance, NULL, NULL);
+		//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)CefModule::ServiceWorker, (LPVOID)hInstance, NULL, NULL);
 	} else if (reason == DLL_PROCESS_DETACH) {
 		NAMESPACE_NAME::appUninitialize();
 	}

@@ -1,4 +1,5 @@
 #include <Common.h>
+#include <Network/NetworkMessage.h>
 #include <Entities/Vehicle.h>
 
 #include <Utils/Models.h>
@@ -60,6 +61,10 @@ NetworkEntityType Vehicle::GetType()
 }
 
 void Vehicle::Update()
+{
+}
+
+void Vehicle::OnNetworkUpdate(NetworkMessage* message)
 {
 }
 

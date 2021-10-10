@@ -1,4 +1,5 @@
 #include <Common.h>
+#include <Entities/Ped.h>
 #include <System/Interface/Interface.h>
 #include <System/Cake.h>
 
@@ -66,7 +67,8 @@ void Interface::Update(float dt)
 	debugText << "DEBUG:~n~";
 
 	LocalPlayer &player = _pGame->m_player;
-	glm::vec3 playerPos = player.GetPosition();
+	glm::vec3 playerPos;
+
 	debugText << "~c~Player position: ~w~" << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << "~n~";
 
 	NetworkManager &network = _pGame->m_network;

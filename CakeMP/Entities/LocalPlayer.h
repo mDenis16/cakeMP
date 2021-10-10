@@ -6,7 +6,7 @@ NAMESPACE_BEGIN;
 
 class Vehicle;
 
-class LocalPlayer : public Player
+class LocalPlayer : Player
 {
 public:
 	int m_playerHandle = 0;
@@ -37,6 +37,7 @@ public:
 
 	virtual void Update();
 	virtual void Frame();
+
 
 	virtual s2::ref<PlayerInfo> GetPlayerInfo();
 	virtual void SetPlayerInfo(const s2::ref<PlayerInfo> &playerInfo);

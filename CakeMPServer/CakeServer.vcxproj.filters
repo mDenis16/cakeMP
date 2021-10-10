@@ -31,6 +31,12 @@
     <ClCompile Include="D:\repos\cakeMP\CakeMPServer\src\World\Queries\Range.cpp">
       <Filter>Src\World\Queries</Filter>
     </ClCompile>
+    <ClCompile Include="src\LagCompensation\LagRecord.cpp">
+      <Filter>Src\LagCompensation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneRender.cpp">
+      <Filter>Src\SceneView</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\repos\cakeMP\CakeMPServer\src\Common.h">
@@ -90,6 +96,12 @@
     <ClInclude Include="D:\repos\cakeMP\CakeMPShared\Network\Structs\CreateVehicle.h">
       <Filter>Shared\Network\Structs</Filter>
     </ClInclude>
+    <ClInclude Include="src\LagCompensation\LagRecord.h">
+      <Filter>Src\LagCompensation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneRender.h">
+      <Filter>Src\SceneView</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\repos\cakeMP\CakeMPServer\CMakeLists.txt" />
@@ -121,6 +133,12 @@
     </Filter>
     <Filter Include="Src\World\Queries">
       <UniqueIdentifier>{E83DB4B8-7ADA-3E55-A70A-232BE715F363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\LagCompensation">
+      <UniqueIdentifier>{4ce6e63c-0733-4c7c-bc07-d743fdcf125a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\SceneView">
+      <UniqueIdentifier>{7aea5812-04cb-49fc-a8a6-0afd1ab6ef84}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

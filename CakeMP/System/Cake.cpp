@@ -50,7 +50,8 @@ Cake::Cake(HMODULE hInstance)
 
 	scriptRegister(hInstance, scriptCleanWorld);
 	scriptRegister(hInstance, scriptGame);
-	scriptRegister(hInstance, CefModule::ServiceWorker);
+
+	//scriptRegister(hInstance, CefModule::ServiceWorker);
 }
 
 Cake::~Cake()
@@ -77,6 +78,7 @@ void Cake::Initialize()
 	m_player.Initialize();
 	m_network.Initialize();
 	m_interface.Initialize();
+	m_initialized = true;
 }
 
 void Cake::Update(float dt)
@@ -87,8 +89,6 @@ void Cake::Update(float dt)
 
 	m_interface.Update(dt);
 
-	m_player.Update();
-	m_network.Update();
 
 	if (uiTextInputVisible()) {
 		uiTextInputUpdate();
@@ -107,6 +107,8 @@ void Cake::Frame()
 	m_interface.Render();
 
 	m_player.Frame();
+
+	m_player.Update();
 }
 
 void Cake::OnConnected()
